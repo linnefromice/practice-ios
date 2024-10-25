@@ -75,10 +75,10 @@
 		C1707AC52CCA38DF00EE8589 = {
 			isa = PBXGroup;
 			children = (
-				C1707AD02CCA38DF00EE8589 /* Landmarks */,
 				C1707AE12CCA38E100EE8589 /* LandmarksTests */,
 				C1707AEB2CCA38E100EE8589 /* LandmarksUITests */,
 				C1707ACF2CCA38DF00EE8589 /* Products */,
+				C1707AD02CCA38DF00EE8589 /* Landmarks */,
 			);
 			sourceTree = "<group>";
 		};
