@@ -11,7 +11,7 @@ import Foundation
 @Reducer
 struct CounterFeature {
     @ObservableState
-    struct State {
+    struct State: Equatable {
         var count = 0
         var fact: String?
         var isLoading = false
@@ -29,6 +29,9 @@ struct CounterFeature {
     
     enum CancelID { case timer }
     
+    @Dependency(\.continuousClock) var clock
+    @Dependency(\.numberFact) var numberFact
+
     var body: some ReducerOf<Self>  {
         Reduce { state, action in
             switch action {
