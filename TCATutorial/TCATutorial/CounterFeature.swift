@@ -6,6 +6,7 @@
 //
 
 import ComposableArchitecture
+import Foundation
 
 @Reducer
 struct CounterFeature {
@@ -19,6 +20,7 @@ struct CounterFeature {
     enum Action {
         case decrementButtonTapped
         case factButtonTapped
+        case factResponse(String)
         case incrementButtonTapped
     }
     
@@ -32,6 +34,21 @@ struct CounterFeature {
             case .factButtonTapped:
                 state.fact = nil
                 state.isLoading = true
+
+                return .run { [count = state.count] send in
+                    do {
+                        let (data, _) = try await URLSession.shared
+                            .data(from: URL(string: "http://numbersapi.com/\(count)")!)
+                        let fact = String(decoding: data, as: UTF8.self)
+                        await send(.factResponse(fact))
+                    } catch {
+                        let errMsg = "Failed to fetch fact: \(error.localizedDescription)"
+                        await send(.factResponse(errMsg))
+                    }
+                }
+            case let .factResponse(fact):
+                state.fact = fact
+                state.isLoading = false
                 return .none
             case .incrementButtonTapped:
                 state.count += 1
