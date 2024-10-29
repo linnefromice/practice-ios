@@ -49,7 +49,7 @@ struct TodosAddView: View {
         if title.isEmpty { return }
         let todo = Todo(
             id: UUID(),
-            title: "Todo \(todos.count + 1)",
+            title: title,
             description: description.isEmpty ? nil : description,
             assignee: assignee.isEmpty ? nil : assignee
         )
