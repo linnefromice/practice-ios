@@ -41,17 +41,43 @@ struct TodosListView: View {
 
 struct TodosAddView: View {
     @Binding var todos: [Todo]
+    @State var title: String = ""
+    @State var description: String = ""
+    @State var assignee: String = ""
     
+    func addTodo() {
+        if title.isEmpty { return }
+        let todo = Todo(
+            id: UUID(),
+            title: "Todo \(todos.count + 1)",
+            description: description.isEmpty ? nil : description,
+            assignee: assignee.isEmpty ? nil : assignee
+        )
+        todos.append(todo)
+        title = ""
+        description = ""
+        assignee = ""
+    }
+
     var body: some View {
-        HStack {
+        Form {
+            LabeledContent {
+              TextField("Title", text: $title, prompt: Text("Required"))
+            } label: {
+              Text("Title")
+            }
+            LabeledContent {
+              TextField("Description", text: $description, prompt: Text("Optional"))
+            } label: {
+              Text("Description")
+            }
+            LabeledContent {
+              TextField("Assignee", text: $assignee, prompt: Text("Optional"))
+            } label: {
+              Text("Assignee")
+            }
             Button {
-                let todo = Todo(
-                    id: UUID(),
-                    title: "Todo \(todos.count + 1)",
-                    description: nil,
-                    assignee: nil
-                )
-                todos.append(todo)
+                addTodo()
             } label: {
                 Text("Add")
             }
