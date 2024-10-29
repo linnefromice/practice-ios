@@ -14,7 +14,7 @@ struct Todo: Identifiable, Hashable {
     let assignee: String?
 }
 
-let todos: [Todo] = [
+let TODOS: [Todo] = [
     Todo(id: UUID(), title: "Todo 1", description: nil, assignee: "Tom"),
     Todo(id: UUID(), title: "Todo 2", description: nil, assignee: "Tom"),
     Todo(id: UUID(), title: "Todo 3", description: nil, assignee: "Jake"),
@@ -23,6 +23,8 @@ let todos: [Todo] = [
 ]
 
 struct TodosListView: View {
+    @Binding var todos: [Todo]
+
     var body: some View {
         List(todos) { todo in
             HStack {
@@ -38,19 +40,35 @@ struct TodosListView: View {
 
 
 struct TodosAddView: View {
+    @Binding var todos: [Todo]
+    
     var body: some View {
-        Text("Add")
+        HStack {
+            Button {
+                let todo = Todo(
+                    id: UUID(),
+                    title: "Todo \(todos.count + 1)",
+                    description: nil,
+                    assignee: nil
+                )
+                todos.append(todo)
+            } label: {
+                Text("Add")
+            }
+        }
     }
 }
 
 struct TodosRoot: View {
+    @State private var todosState: [Todo] = TODOS
+    
     var body: some View {
         TabView {
-            TodosListView()
+            TodosListView(todos: $todosState)
                 .tabItem {
                     Label("List", systemImage: "list.bullet")
                 }
-            TodosAddView()
+            TodosAddView(todos: $todosState)
                 .tabItem {
                     Label("Add", systemImage: "plus")
                 }
