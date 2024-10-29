@@ -7,15 +7,60 @@
 
 import SwiftUI
 
+struct Todo: Identifiable, Hashable {
+    let id: UUID
+    let title: String
+    let description: String?
+    let assignee: String?
+}
+
+let todos: [Todo] = [
+    Todo(id: UUID(), title: "Todo 1", description: nil, assignee: "Tom"),
+    Todo(id: UUID(), title: "Todo 2", description: nil, assignee: "Tom"),
+    Todo(id: UUID(), title: "Todo 3", description: nil, assignee: "Jake"),
+    Todo(id: UUID(), title: "Todo 4", description: nil, assignee: nil),
+    Todo(id: UUID(), title: "Todo 5", description: nil, assignee: "Arisa"),
+]
+
+struct TodosListView: View {
+    var body: some View {
+        List(todos) { todo in
+            HStack {
+                Text(todo.title)
+                if let assignee = todo.assignee {
+                    Spacer()
+                    Text(assignee)
+                }
+            }
+        }
+    }
+}
+
+
+struct TodosAddView: View {
+    var body: some View {
+        Text("Add")
+    }
+}
+
+struct TodosRoot: View {
+    var body: some View {
+        TabView {
+            TodosListView()
+                .tabItem {
+                    Label("List", systemImage: "list.bullet")
+                }
+            TodosAddView()
+                .tabItem {
+                    Label("Add", systemImage: "plus")
+                }
+        }
+    }
+}
+
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        TodosRoot()
     }
 }
 
