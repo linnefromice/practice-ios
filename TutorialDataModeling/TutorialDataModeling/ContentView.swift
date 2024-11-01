@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var players: [String] = ["Elisha", "Andre", "Jasmine"]
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            ForEach(0..<players.count, id: \.description) { index in
+                TextField("Name", text: $players[index])
+            }
+            Button("Add Player", systemImage: "plus") {
+                players.append("")
+            }
         }
         .padding()
     }
