@@ -26,6 +26,8 @@ struct Scoreboard {
     var state = GameState.setup
     
     mutating func resetScores(to newValue: Int) {
-        
+        for idx in 0..<players.count {
+            players[idx].score = newValue
+        }
     }
 }
