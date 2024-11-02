@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import SwiftUI
 
-struct Player: Identifiable {
+struct Player: Identifiable, Hashable {
     let id = UUID()
     var name: String
     var score: Int
+    var color: Color
 }
