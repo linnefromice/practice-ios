@@ -24,14 +24,35 @@ struct ContentView: View {
     ]
     
     var body: some View {
-        VStack {
-            ForEach($players) { $player in
-                TextField("Name", text: $player.name)
-                Stepper("\(player.score)", value: $player.score)
+        VStack(alignment: .leading) {
+            Text("Score Keeper")
+                .font(.title)
+                .bold()
+                .padding(.bottom)
+
+            Grid {
+                GridRow {
+                    Text("Player")
+                        .gridColumnAlignment(.leading)
+                    Text("Score")
+                }
+                .font(.headline)
+                ForEach($players) { $player in
+                    GridRow {
+                        TextField("Name", text: $player.name)
+                        Text("\(player.score)")
+                        Stepper("\(player.score)", value: $player.score)
+                            .labelsHidden()
+                    }
+                }
             }
+            .padding()
+            
             Button("Add Player", systemImage: "plus") {
                 players.append(Player(name: "", score: 0))
             }
+            
+            Spacer()
         }
         .padding()
     }
