@@ -11,61 +11,45 @@ struct ContentView: View {
     @State private var players: [Player] = [
         Player(
             name: "Elisha",
-            score: 0,
-            color: Color.white
+            score: 0
         ),
         Player(
             name: "Andre",
-            score: 0,
-            color: Color.white
+            score: 0
         ),
         Player(
             name: "Jasmine",
-            score: 0,
-            color: Color.white
+            score: 0
         )
     ]
-    @State private var selectedPlayers: Set<Player> = []
-    
-    private func movePlayer(from source: IndexSet, to destination: Int) {
-        players.move(fromOffsets: source, toOffset: destination)
-    }
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                Text("Score Keeper")
-                    .font(.title)
-                    .bold()
-                    .padding(.bottom)
-                Spacer()
-                EditButton()
-            }
+            Text("Score Keeper")
+                .font(.title)
+                .bold()
+                .padding(.bottom)
 
-            HStack {
-                Text("Player")
-                    .gridColumnAlignment(.leading)
-                Text("Score")
-                Text("")
-                Text("Color")
-            }
-            .font(.headline)
-            List(selection: $selectedPlayers) {
+            Grid {
+                GridRow {
+                    Text("Player")
+                        .gridColumnAlignment(.leading)
+                    Text("Score")
+                }
+                .font(.headline)
                 ForEach($players) { $player in
-                    HStack {
+                    GridRow {
                         TextField("Name", text: $player.name)
                         Text("\(player.score)")
                         Stepper("\(player.score)", value: $player.score)
                             .labelsHidden()
-                        ColorPicker("Color", selection: $player.color)
-                            .labelsHidden()
                     }
-                    .background(player.color)
                 }
-                .onMove(perform: movePlayer)
             }
+            .padding()
+            
             Button("Add Player", systemImage: "plus") {
-                players.append(Player(name: "", score: 0, color: Color.white))
+                players.append(Player(name: "", score: 0))
             }
             
             Spacer()
