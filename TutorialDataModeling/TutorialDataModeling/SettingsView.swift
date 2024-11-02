@@ -23,7 +23,6 @@ struct SettingsView: View {
                 Text("20 starting points")
                     .tag(20)
             }
-                
         }
         .padding()
         .background(.thinMaterial, in: .rect(cornerRadius: 10.0))
