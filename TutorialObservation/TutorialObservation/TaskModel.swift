@@ -1,7 +1,7 @@
 import Foundation
 
 @Observable
-class TaskModel {
+class TaskModel: Identifiable {
     let id = UUID()
     var name: String
     var isCompleted: Bool = false
