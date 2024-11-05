@@ -12,6 +12,7 @@ class TaskModel: Identifiable {
     }
 }
 
+@Observable
 class TaskViewModel {
     var tasks: [TaskModel] = []
     
@@ -22,7 +23,7 @@ class TaskViewModel {
         tasks.append(TaskModel(name: "Task 3", isCompleted: true))
     }
     
-    func addTask(_ task: TaskModel) {
-        tasks.append(task)
+    func addTask(name: String) {
+        tasks.append(TaskModel(name: name, isCompleted: false))
     }
 }

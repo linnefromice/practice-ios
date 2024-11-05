@@ -26,10 +26,10 @@ struct TaskListView: View {
             }
             .padding(.bottom)
             .sheet(item: $selectedTask) { task in
-                    Text("Details for \(task.name)")
+                Text("Details for \(task.name)")
             }
             .sheet(isPresented: $isEdit, content: {
-                Text("Add Task")
+                AddTaskView(taskData: taskData)
             })
             
         }
