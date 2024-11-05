@@ -9,13 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        VStack(spacing: 0) {
+            Text("Task Manager")
+              .font(
+                Font.system(size: 54)
+                    .weight(.bold)
+              )
+              .kerning(0.25)
+              .foregroundColor(.black)
+              .frame(maxHeight: .infinity)
         }
-        .padding()
     }
 }
 
