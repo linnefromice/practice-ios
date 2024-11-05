@@ -34,8 +34,9 @@ struct MovieList: View {
             }
             .sheet(item: $newMovie) { movie in
                 NavigationStack {
-                    MovieDetail(movie: movie)
+                    MovieDetail(movie: movie, isNew: true)
                 }
+                .interactiveDismissDisabled()
             }
         } detail: {
             Text("Select a movie")
