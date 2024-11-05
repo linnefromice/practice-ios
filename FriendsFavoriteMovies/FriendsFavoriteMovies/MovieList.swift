@@ -13,6 +13,16 @@ struct MovieList: View {
     @Environment(\.modelContext) private var context
     @State private var newMovie: Movie?
     
+    init(titleFilter: String = "") {
+        let predicate = #Predicate<Movie> { movie in
+            titleFilter.isEmpty || movie.title.localizedStandardContains(titleFilter)
+        }
+
+
+        _movies = Query(filter: predicate, sort: \Movie.title)
+    }
+
+    
     var body: some View {
         NavigationSplitView {
             List {
@@ -60,5 +70,10 @@ struct MovieList: View {
 
 #Preview {
     MovieList()
+        .modelContainer(SampleData.shared.modelContainer)
+}
+
+#Preview("Filtered") {
+    MovieList(titleFilter: "tr")
         .modelContainer(SampleData.shared.modelContainer)
 }
