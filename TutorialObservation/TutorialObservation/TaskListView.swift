@@ -26,7 +26,7 @@ struct TaskListView: View {
             }
             .padding(.bottom)
             .sheet(item: $selectedTask) { task in
-                Text("Details for \(task.name)")
+                TaskDetailsView(task: task)
             }
             .sheet(isPresented: $isEdit, content: {
                 AddTaskView(taskData: taskData)
