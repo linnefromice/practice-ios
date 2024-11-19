@@ -5,6 +5,14 @@ import PackageDescription
 
 let package = Package(
     name: "Sample",
-    products: [],
-    targets: []
+    platforms: [
+        .iOS(.v15),
+        .macOS(.v11)
+    ],
+    products: [
+        .library(name: "AppFeature", targets: ["AppFeature"])
+    ],
+    targets: [
+        .target(name: "AppFeature")
+    ]
 )

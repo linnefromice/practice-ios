@@ -1,9 +1,4 @@
-//
-//  SampleApp.swift
-//  Sample
-//
-//  Created by arata.haruyama on 2024/11/19.
-//
+import AppFeature
 
 import SwiftUI
 
