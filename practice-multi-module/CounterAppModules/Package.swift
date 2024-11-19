@@ -4,21 +4,21 @@
 import PackageDescription
 
 let package = Package(
-    name: "CounterApp",
+    name: "CounterAppModules",
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "CounterApp",
-            targets: ["CounterApp"]),
+            name: "ExampleModule",
+            targets: ["ExampleModule"]),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "CounterApp"),
+            name: "ExampleModule"),
         .testTarget(
-            name: "CounterAppTests",
-            dependencies: ["CounterApp"]
+            name: "ExampleModuleTests",
+            dependencies: ["ExampleModule"]
         ),
     ]
 )
