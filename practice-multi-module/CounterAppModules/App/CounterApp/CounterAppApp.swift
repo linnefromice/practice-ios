@@ -1,4 +1,5 @@
 import SwiftUI
+import Counter
 
 @main
 struct CounterAppApp: App {

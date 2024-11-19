@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C19127962CEC6D52009D58C7 /* ExampleModule in Frameworks */ = {isa = PBXBuildFile; productRef = C19127952CEC6D52009D58C7 /* ExampleModule */; };
+		C19127A32CEC71A3009D58C7 /* Counter in Frameworks */ = {isa = PBXBuildFile; productRef = C19127A22CEC71A3009D58C7 /* Counter */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,17 +27,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C19127962CEC6D52009D58C7 /* ExampleModule in Frameworks */,
+				C19127A32CEC71A3009D58C7 /* Counter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C191279E2CEC6F87009D58C7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C1F8A83A2CEC490100C45E16 = {
 			isa = PBXGroup;
 			children = (
 				C1F8A8452CEC490100C45E16 /* CounterApp */,
+				C191279E2CEC6F87009D58C7 /* Frameworks */,
 				C1F8A8442CEC490100C45E16 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,7 +78,7 @@
 			);
 			name = CounterApp;
 			packageProductDependencies = (
-				C19127952CEC6D52009D58C7 /* ExampleModule */,
+				C19127A22CEC71A3009D58C7 /* Counter */,
 			);
 			productName = CounterApp;
 			productReference = C1F8A8432CEC490100C45E16 /* CounterApp.app */;
@@ -101,7 +109,7 @@
 			mainGroup = C1F8A83A2CEC490100C45E16;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				C19127942CEC6D52009D58C7 /* XCLocalSwiftPackageReference "../../CounterAppModules" */,
+				C19127A12CEC71A3009D58C7 /* XCLocalSwiftPackageReference "../../CounterAppModules" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C1F8A8442CEC490100C45E16 /* Products */;
@@ -333,16 +341,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		C19127942CEC6D52009D58C7 /* XCLocalSwiftPackageReference "../../CounterAppModules" */ = {
+		C19127A12CEC71A3009D58C7 /* XCLocalSwiftPackageReference "../../CounterAppModules" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../CounterAppModules;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		C19127952CEC6D52009D58C7 /* ExampleModule */ = {
+		C19127A22CEC71A3009D58C7 /* Counter */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = ExampleModule;
+			productName = Counter;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
