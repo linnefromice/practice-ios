@@ -29,7 +29,7 @@ class SignUpViewModel {
 }
 
 struct SignUpEmailView: View {
-  var viewModel: SignUpViewModel
+  @Environment(\.signUpState) var viewModel: SignUpViewModel
   @State var email: String = ""
   @Binding var navPath: [SignUpDestination]
 
@@ -47,7 +47,7 @@ struct SignUpEmailView: View {
 }
 
 struct SignUpPasswordView: View {
-  var viewModel: SignUpViewModel
+  @Environment(\.signUpState) var viewModel: SignUpViewModel
   @State var password: String = ""
   @Binding var navPath: [SignUpDestination]
 
@@ -65,7 +65,7 @@ struct SignUpPasswordView: View {
 }
 
 struct SignUpCodeVerificationView: View {
-  var viewModel: SignUpViewModel
+  @Environment(\.signUpState) var viewModel: SignUpViewModel
   @State var code: String = ""
   @Binding var navPath: [SignUpDestination]
 
@@ -83,7 +83,7 @@ struct SignUpCodeVerificationView: View {
 }
 
 struct HomeView: View {
-  var viewModel: SignUpViewModel
+  @Environment(\.signUpState) var viewModel: SignUpViewModel
   @Binding var navPath: [SignUpDestination]
 
   var body: some View {
@@ -92,29 +92,47 @@ struct HomeView: View {
   }
 }
 
+struct NavigationRoot: View {
+    @State var navPath: [SignUpDestination] = []
+
+    var body: some View {
+      NavigationStack(path: $navPath) {
+        SignUpEmailView(navPath: $navPath)
+          .navigationDestination(for: SignUpDestination.self) { dest in
+            switch dest {
+            case .email:
+              SignUpEmailView(navPath: $navPath)
+            case .password:
+              SignUpPasswordView(navPath: $navPath)
+            case .codeVerification:
+              SignUpCodeVerificationView(navPath: $navPath)
+            case .home:
+              HomeView(navPath: $navPath)
+            }
+          }
+      }
+    }
+}
+
+
+struct SignUpStateKey: EnvironmentKey {
+    static let defaultValue: SignUpViewModel = SignUpViewModel()
+}
+
+extension EnvironmentValues {
+    var signUpState: SignUpViewModel {
+        get { self[SignUpStateKey.self] }
+        set { self[SignUpStateKey.self] = newValue }
+    }
+}
+
 struct ContentView: View {
   @State var navPath: [SignUpDestination] = []
-  let viewModel: SignUpViewModel
+  @State var viewModel: SignUpViewModel = SignUpViewModel()
 
   var body: some View {
-    NavigationStack(path: $navPath) {
-      SignUpEmailView(viewModel: viewModel, navPath: $navPath)
-        .navigationDestination(for: SignUpDestination.self) { dest in
-          switch dest {
-          case .email:
-            SignUpEmailView(viewModel: viewModel, navPath: $navPath)
-          case .password:
-            SignUpPasswordView(viewModel: viewModel, navPath: $navPath)
-          case .codeVerification:
-            SignUpCodeVerificationView(viewModel: viewModel, navPath: $navPath)
-          case .home:
-            HomeView(viewModel: viewModel, navPath: $navPath)
-          }
-        }
-      //            .onAppear {
-      //                navPath.append(.email)
-      //            }
-    }
+      NavigationRoot(navPath: navPath)
+          .environment(\.signUpState, viewModel)
   }
 }
 
