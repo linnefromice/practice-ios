@@ -7,15 +7,30 @@
 
 import SwiftUI
 
+enum GenericError: LocalizedError {
+    case global
+}
+
 struct ContentView: View {
+    @State var error: GenericError?
+    @State private var showAlert = false
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Button("Trigger Error") {
+                error = .global
+                showAlert = true
+            }
         }
         .padding()
+        .alert(isPresented: $showAlert, error: error) { _ in
+            Button("OK") {
+                showAlert = false
+            }
+        } message: { err in
+            // EmptyView()
+            Text(error?.localizedDescription ?? "Unknown Error")
+        }
     }
 }
 
