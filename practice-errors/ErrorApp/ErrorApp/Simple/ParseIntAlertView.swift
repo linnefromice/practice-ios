@@ -5,15 +5,14 @@ enum ParseIntError: Error {
     case parseFailed
 }
 
-func parseNumberFromString(_ value: String) -> Int {
+func parseNumberFromString(_ value: String) throws -> Int {
     if value.isEmpty {
-        // todo: throw
+        throw ParseIntError.empty
     }
     if let res = Int(value) {
         return res
     } else {
-        // todo: throw
-        return 0
+        throw ParseIntError.parseFailed
     }
 }
 
@@ -22,7 +21,12 @@ struct ParseIntAlertView: View {
     @State var result: Int?
     
     func executeParse() {
-        result = parseNumberFromString(numText)
+        do {
+            result = try parseNumberFromString(numText)
+        } catch {
+            result = nil
+        }
+        
     }
     
     var body: some View {
@@ -31,7 +35,10 @@ struct ParseIntAlertView: View {
                 .textFieldStyle(.roundedBorder)
                 .padding()
             Button("Parse") {
-                print(Int(numText) ?? 0)
+                executeParse()
+            }
+            if let res = result {
+                Text(String(res))
             }
         }
         .padding()
