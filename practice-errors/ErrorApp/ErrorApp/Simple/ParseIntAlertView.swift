@@ -47,12 +47,20 @@ struct ParseIntAlertView: View {
                 Text("Result")
                 Text(String(res))
             }
-            if let error = err {
-                Text("Error")
-                Text(error)
-            }
         }
         .padding()
+        .alert(
+            "Error",
+            isPresented: Binding(
+                get: { err != nil },
+                set: { if !$0 { err = nil }}
+            ),
+            presenting: err
+        ) { err in
+            Button("OK", role: .cancel) {}
+        } message: { err in
+            Text(err)
+        }
     }
 }
 
