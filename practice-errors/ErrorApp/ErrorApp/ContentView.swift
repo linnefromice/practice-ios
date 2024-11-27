@@ -8,6 +8,16 @@ struct ContentView: View {
             } label: {
                 Text("Simple")
             }
+            Tab {
+                ParseIntAlertView()
+            } label: {
+                Text("Throw")
+            }
+            Tab {
+                ParseIntResultAlertView()
+            } label: {
+                Text("Result")
+            }
         }
     }
 }
