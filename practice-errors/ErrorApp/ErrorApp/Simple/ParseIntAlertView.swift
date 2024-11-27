@@ -6,14 +6,13 @@ enum ParseIntError: Error {
 }
 
 func parseNumberFromString(_ value: String) throws -> Int {
-    if value.isEmpty {
+    guard !value.isEmpty else {
         throw ParseIntError.empty
     }
-    if let res = Int(value) {
-        return res
-    } else {
+    guard let res = Int(value) else {
         throw ParseIntError.parseFailed
     }
+    return res
 }
 
 struct ParseIntAlertView: View {
