@@ -5,10 +5,7 @@ struct GlobalWrapperView: View {
     
     var body: some View {
         VStack {
-            Text("Global")
-            Button("Set Error") {
-                errState.setError(GlobalError.invalid)
-            }
+            WorkingView(errState: errState)
             Text("\(errState.error?.localizedDescription ?? "")")
         }
         .alert(
