@@ -1,5 +1,6 @@
 import SwiftUI
 
+// ref: https://developer.apple.com/documentation/swiftui/composing-swiftui-gestures
 public struct DraggableCircleView: View {
     enum DragState {
         case inactive

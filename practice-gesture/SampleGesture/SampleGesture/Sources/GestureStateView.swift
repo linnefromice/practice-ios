@@ -1,5 +1,6 @@
 import SwiftUI
 
+// ref: https://developer.apple.com/documentation/swiftui/gesturestate
 public struct GestureStateView: View {
     @GestureState private var isDetectingLongPress = false
 
