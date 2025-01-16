@@ -1,5 +1,5 @@
-import SwiftUI
 import RiveRuntime
+import SwiftUI
 
 struct RiveLoading: View {
     var body: some View {
@@ -17,4 +17,3 @@ struct RiveLoading: View {
             )
     }
 }
-
