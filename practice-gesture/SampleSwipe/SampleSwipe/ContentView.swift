@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  SampleSwipe
-//
-//  Created by arata.haruyama on 2025/01/28.
-//
-
 import SwiftUI
 
 struct ContentView: View {
@@ -13,7 +6,15 @@ struct ContentView: View {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("Hello, world!")
+            ScrollView {
+                SwipableListView()
+            }
+                .frame(maxWidth: .infinity)
+            Button(action: {}) {
+                Text("Add")
+            }
+                .buttonStyle(.bordered)
+                .frame(width: .infinity)
         }
         .padding()
     }
