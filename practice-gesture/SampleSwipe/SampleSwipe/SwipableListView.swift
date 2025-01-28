@@ -19,9 +19,11 @@ public struct SwipableListView: View {
     public init() {}
 
     public var body: some View {
-        VStack {
+        List {
             ForEach(rows, id: \.name) { row in
                 SwipableRow(id: UUID().uuidString, name: row.name, imageId: row.imageId)
+                    .listRowBackground(Color.clear)
+                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 4, trailing: 0))
             }
         }
     }
@@ -55,6 +57,20 @@ public struct SwipableRow: View {
                     .foregroundColor(.secondary)
             }
         }
+        .swipeActions(edge: .trailing) {
+            Button(action: {}) {
+                Text("Mute")
+            }
+                .tint(.yellow)
+            Button(action: {}) {
+                Text("Dismiss")
+            }
+                .tint(.gray)
+            Button(action: {}) {
+                Text("Delete")
+            }
+                .tint(.red)
+        }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
         .overlay(
@@ -63,3 +79,4 @@ public struct SwipableRow: View {
         )
     }
 }
+

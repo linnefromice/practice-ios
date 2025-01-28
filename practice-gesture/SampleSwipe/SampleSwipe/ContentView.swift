@@ -6,9 +6,9 @@ struct ContentView: View {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            ScrollView {
+            // ScrollView {
                 SwipableListView()
-            }
+            // }
                 .frame(maxWidth: .infinity)
             Button(action: {}) {
                 Text("Add")
