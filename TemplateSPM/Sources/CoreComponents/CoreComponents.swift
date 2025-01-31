@@ -1,5 +1,6 @@
 import SwiftUI
 
+// ref: https://stackoverflow.com/questions/56462647/center-view-horizontally-in-swiftui
 public struct ThreeSectionBar<Left, Center, Right>: View
 where Left: View, Center: View, Right: View {
     public let left: () -> Left
