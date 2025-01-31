@@ -4,21 +4,22 @@
 import PackageDescription
 
 let package = Package(
-    name: "TemplateSPM",
+    name: "CoreComponents",
+    platforms: [.iOS(.v17)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "TemplateSPM",
-            targets: ["TemplateSPM"]),
+            name: "CoreComponents",
+            targets: ["CoreComponents"]),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "TemplateSPM"),
+            name: "CoreComponents"),
         .testTarget(
-            name: "TemplateSPMTests",
-            dependencies: ["TemplateSPM"]
+            name: "CoreComponentsTests",
+            dependencies: ["CoreComponents"]
         ),
     ]
 )
