@@ -11,6 +11,9 @@ let package = Package(
         .library(
             name: "CoreComponents",
             targets: ["CoreComponents"]),
+        .library(
+            name: "CoreCamera",
+            targets: ["CoreCamera"]),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -21,5 +24,7 @@ let package = Package(
             name: "CoreComponentsTests",
             dependencies: ["CoreComponents"]
         ),
+        .target(
+            name: "CoreCamera"),
     ]
 )
