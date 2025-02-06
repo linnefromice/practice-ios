@@ -7,32 +7,34 @@ public struct FeatureChatRoomView: View {
     @Query(sort: \ChatRoom.roomId, order: .reverse) var allChatRooms: [ChatRoom]
 
     public init() {}
+
+    var header: some View {
+        ThreeSectionBar(
+            left: { Image(systemName: "chevron.left") },
+            center: { Text("Chat List") },
+            right: { Image(systemName: "chevron.right") }
+        )
+    }
+
+    var resetButton: some View {
+        Button(action: {
+            for chat in allChatRooms {
+                chat.hiddenDate = nil
+                chat.isNotificationoOff = false
+            }
+            try? context.save()
+        }) {
+            Text("Reset Settings")
+        }
+    }
+    
     
     public var body: some View {
         VStack {
-            ThreeSectionBar(
-                left: { Image(systemName: "chevron.left") },
-                center: { Text("Chat List") },
-                right: { Image(systemName: "chevron.right") }
-            )
+            header
             List(allChatRooms) { chat in
                 if chat.hiddenDate == nil {
-                    HStack(alignment: .center) {
-                        Image(systemName: "person.circle")
-                        VStack(alignment: .leading) {
-                            HStack(spacing: 4) {
-                                Text("@ \(chat.name)")
-                                if chat.isNotificationoOff {
-                                    Image(systemName: "speaker.slash")
-                                }
-                                Spacer()
-                            }
-                            if let latestMessage = chat.latestMessage {
-                                Text(latestMessage)
-                            }
-                        }
-                        Spacer()
-                    }
+                   chatRoomRow(chat)
                         .swipeActions {
                             Button(action: {
                                 chat.hiddenDate = Date()
@@ -68,16 +70,27 @@ public struct FeatureChatRoomView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 8)
             Spacer()
-            Button(action: {
-                for chat in allChatRooms {
-                    chat.hiddenDate = nil
-                    chat.isNotificationoOff = false
-                }
-                try? context.save()
-            }) {
-                Text("Reset Settings")
-            }
+            resetButton
         }
             .frame(maxWidth: .infinity)
+    }
+
+    private func chatRoomRow(_ chat: ChatRoom) -> some View {
+        HStack(alignment: .center) {
+            Image(systemName: "person.circle")
+            VStack(alignment: .leading) {
+                HStack(spacing: 4) {
+                    Text("@ \(chat.name)")
+                    if chat.isNotificationoOff {
+                        Image(systemName: "speaker.slash")
+                    }
+                    Spacer()
+                }
+                if let latestMessage = chat.latestMessage {
+                    Text(latestMessage)
+                }
+            }
+            Spacer()
+        }
     }
 }
