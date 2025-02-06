@@ -1,7 +1,10 @@
-public struct ChatRoomData: Identifiable, Hashable, Sendable {
-    let roomId: String
-    let name: String
-    let latestMessage: String?
+import SwiftData
+
+@Model
+public class ChatRoom {
+    @Attribute(.unique) var roomId: String
+    var name: String
+    var latestMessage: String?
 
     public init(
         roomId: String,
@@ -12,6 +15,4 @@ public struct ChatRoomData: Identifiable, Hashable, Sendable {
         self.name = name
         self.latestMessage = latestMessage
     }
-
-    public var id: String { roomId }
 }

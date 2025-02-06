@@ -3,7 +3,7 @@ import FeatureChat
 
 struct ContentView: View {
     var body: some View {
-        FeatureChatView()
+        FeatureChatEntryView()
     }
 }
 
