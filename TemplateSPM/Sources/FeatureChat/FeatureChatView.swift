@@ -32,26 +32,27 @@ public struct FeatureChatView: View {
                 center: { Text("Chat List") },
                 right: { Image(systemName: "chevron.right") }
             )
-            ScrollView {
-                VStack(alignment: .leading) {
-                    ForEach(mockChatData) { chat in
-                        HStack(alignment: .center) {
-                            Image(systemName: "person.circle")
-                            VStack(alignment: .leading) {
-                                Text("@ \(chat.name)")
-                                if let latestMessage = chat.latestMessage {
-                                    Text(latestMessage)
-                                }
-                            }
-                            Spacer()
+            List(mockChatData) { chat in
+                HStack(alignment: .center) {
+                    Image(systemName: "person.circle")
+                    VStack(alignment: .leading) {
+                        Text("@ \(chat.name)")
+                        if let latestMessage = chat.latestMessage {
+                            Text(latestMessage)
                         }
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 4)
                     }
+                    Spacer()
                 }
-                    .frame(maxWidth: .infinity)
+                    .swipeActions {
+                        Button(action: {}) {
+                            Image(systemName: "trash")
+                        }
+                    }
                     .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
             }
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 8)
         }
             .frame(maxWidth: .infinity)
     }
