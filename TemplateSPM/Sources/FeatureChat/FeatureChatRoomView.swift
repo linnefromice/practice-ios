@@ -16,31 +16,67 @@ public struct FeatureChatRoomView: View {
                 right: { Image(systemName: "chevron.right") }
             )
             List(allChatRooms) { chat in
-                HStack(alignment: .center) {
-                    Image(systemName: "person.circle")
-                    VStack(alignment: .leading) {
-                        Text("@ \(chat.name)")
-                        if let latestMessage = chat.latestMessage {
-                            Text(latestMessage)
+                if chat.hiddenDate == nil {
+                    HStack(alignment: .center) {
+                        Image(systemName: "person.circle")
+                        VStack(alignment: .leading) {
+                            HStack(spacing: 4) {
+                                Text("@ \(chat.name)")
+                                if chat.isNotificationoOff {
+                                    Image(systemName: "speaker.slash")
+                                }
+                                Spacer()
+                            }
+                            if let latestMessage = chat.latestMessage {
+                                Text(latestMessage)
+                            }
                         }
+                        Spacer()
                     }
-                    Spacer()
+                        .swipeActions {
+                            Button(action: {
+                                chat.hiddenDate = Date()
+                                try? context.save()
+                            }) {
+                                Image(systemName: "eye.slash")
+                            }
+                                .tint(.indigo)
+                            if chat.isNotificationoOff {
+                                Button(action: {
+                                    chat.isNotificationoOff = false
+                                    try? context.save()
+                                }) {
+                                    Image(systemName: "speaker")
+                                }
+                                    .tint(.blue)
+                            } else {
+                                Button(action: {
+                                    chat.isNotificationoOff = true
+                                    try? context.save()
+                                }) {
+                                    Image(systemName: "speaker.slash")
+                                }
+                                    .tint(.gray)
+                            }
+                            
+                        }
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
                 }
-                    .swipeActions {
-                        Button(action: {}) {
-                            Image(systemName: "eye.slash")
-                        }
-                            .tint(.indigo)
-                        Button(action: {}) {
-                            Image(systemName: "speaker.slash")
-                        }
-                            .tint(.gray)
-                    }
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
+
             }
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 8)
+            Spacer()
+            Button(action: {
+                for chat in allChatRooms {
+                    chat.hiddenDate = nil
+                    chat.isNotificationoOff = false
+                }
+                try? context.save()
+            }) {
+                Text("Reset Settings")
+            }
         }
             .frame(maxWidth: .infinity)
     }
