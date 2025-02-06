@@ -4,7 +4,7 @@ import CoreComponents
 
 public struct FeatureChatRoomView: View {
     @Environment(\.modelContext) private var context
-    @Query(sort: \ChatRoom.roomId, order: .forward) var allChatRooms: [ChatRoom]
+    @Query(sort: \ChatRoom.roomId, order: .reverse) var allChatRooms: [ChatRoom]
 
     public init() {}
     

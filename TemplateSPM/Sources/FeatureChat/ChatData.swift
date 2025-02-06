@@ -2,12 +2,12 @@ import SwiftData
 
 @Model
 public class ChatRoom {
-    @Attribute(.unique) var roomId: String
+    @Attribute(.unique) var roomId: Int
     var name: String
     var latestMessage: String?
 
     public init(
-        roomId: String,
+        roomId: Int,
         name: String,
         latestMessage: String? = nil
     ) {
