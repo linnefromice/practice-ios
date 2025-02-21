@@ -1,4 +1,5 @@
 import SwiftUI
+import SplineRuntime
 
 struct ContentView: View {
     let splineFilenames: [String] = [
@@ -25,6 +26,13 @@ struct ContentView: View {
             ForEach(splineFilenames, id: \.self) { filename in
                 Tab(filename, systemImage: "globe") {
                     SplineRenderingView(resourceName: filename)
+                }
+            }
+
+            ForEach(splineFilenames, id: \.self) { filename in
+                Tab("Raw: \(filename)", systemImage: "globe.desk") {
+                    let url = Bundle.main.url(forResource: filename, withExtension: "splineswift")!
+                    SplineView(sceneFileURL: url)
                 }
             }
         }
