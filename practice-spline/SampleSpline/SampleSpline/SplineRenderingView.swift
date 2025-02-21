@@ -1,9 +1,19 @@
 import SwiftUI
 import SplineRuntime
 
-struct Spline01View: View {
-    var body: some View {
-        let url = Bundle.main.url(forResource: "01_synesthesia", withExtension: "splineswift")!
+public struct SplineRenderingView: View {
+    let resourceName: String
+
+    public init(resourceName: String) {
+        self.resourceName = resourceName
+    }
+
+    public var body: some View {
+        let url = Bundle.main.url(forResource: resourceName, withExtension: "splineswift")!
         SplineView(sceneFileURL: url).ignoresSafeArea(.all)
+            // .onTapGesture {
+            //     // タップ時のアクション
+            //     print("Spline tapped")
+            // }
     }
 }
