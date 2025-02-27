@@ -63,9 +63,13 @@ public struct TodoListView: View {
     }
 
     private func getAssignees(for todo: Todo) -> [User] {
-        return users.filter { user in
-            todo.assigneeIds.contains(user.id)
-        }
+        // switch todo.assigneeIds {
+        // case .solo(let id):
+        //     return users.filter { $0.id == id }
+        // case .multiple(let ids):
+        //     return users.filter { ids.contains($0.id) }
+        // }
+        return users.filter { todo.assigneeIds.contains($0.id) }
     }
 
     private func deleteTodos(at offsets: IndexSet) {
@@ -150,6 +154,9 @@ struct AddTodoView: View {
     }
 
     private func addTodo() {
+        // let assigneeIds: AssigneeVariant = selectedUserIds.count == 1
+        //     ? .solo(selectedUserIds[0])
+        //     : .multiple(selectedUserIds)
         let newTodo = Todo(title: title, assigneeIds: selectedUserIds)
         modelContext.insert(newTodo)
         dismiss()

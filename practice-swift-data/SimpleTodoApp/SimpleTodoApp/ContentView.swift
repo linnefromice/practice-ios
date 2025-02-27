@@ -69,11 +69,20 @@ struct ContentViewContents: View {
             // サンプルTodoの追加
             let users = try! modelContext.fetch(FetchDescriptor<User>())
             let shuffledUsers = users.shuffled()
-            let todo1 = Todo(title: "買い物に行く", assigneeIds: [shuffledUsers[0].id])
-            let todo2 = Todo(
-                title: "レポートを書く", assigneeIds: [shuffledUsers[1].id, shuffledUsers[2].id])
+            let todo1 = Todo(title: "買い物に行く", assigneeIds: [shuffledUsers[0].id, shuffledUsers[1].id])
+            let todo2 = Todo(title: "レポートを書く", assigneeIds: [shuffledUsers[2].id, shuffledUsers[3].id, shuffledUsers[4].id])
+            let todo3 = Todo(title: "メールを確認する", assigneeIds: [])
             modelContext.insert(todo1)
             modelContext.insert(todo2)
+            modelContext.insert(todo3)
+
+            // Error when trying to persist object with array in enum
+            // 　　　error: SQLCore dispatchRequest: exception handling request: <NSSQLSaveChangesRequestContext: 0x301783840> , [<__NSConcreteUUID 0x3022f9b80> valueForUndefinedKey:]: this class is not key value coding-compliant for the key _buffer
+            // let todo1 = Todo(title: "買い物に行く", assigneeIds: .solo(shuffledUsers[0].id))
+            // let todo2 = Todo(title: "レポートを書く", assigneeIds: .solo(shuffledUsers[1].id))
+            // let todo3 = Todo(
+            //     title: "レポートを書く", assigneeIds: .multiple([shuffledUsers[2].id, shuffledUsers[3].id]))
+            // modelContext.insert(todo3)
             try! modelContext.save()
         }
     }
