@@ -15,52 +15,69 @@ struct ContentView: View {
                 .fontWeight(.bold)
                 .padding(.bottom, 20)
             
-            // Username field
+            // Username field using CustomTextField
             VStack(alignment: .leading) {
                 Text("Username")
                     .font(.headline)
-                TextField("Enter your username", text: $username)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .frame(height: 40)
+                CustomTextField(
+                    text: $username,
+                    placeholder: "Enter your username",
+                    keyboardType: .default,
+                    returnKeyType: .next,
+                    onCommit: {
+                        print("Username entered: \(username)")
+                    }
+                )
+                .frame(height: 40)
             }
             .padding(.horizontal)
             
-            // Password field
+            // Password field using CustomTextField
             VStack(alignment: .leading) {
                 Text("Password")
                     .font(.headline)
-                SecureField("Enter your password", text: $password)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .frame(height: 40)
+                CustomTextField(
+                    text: $password,
+                    placeholder: "Enter your password",
+                    returnKeyType: .done,
+                    isSecureTextEntry: true,
+                    onCommit: {
+                        print("Password entered")
+                    }
+                )
+                .frame(height: 40)
             }
             .padding(.horizontal)
             
-            // Save button
-            Button("Save") {
-                savedUsername = username
-                savedPassword = password
-                showSavedInfo = true
-                hideKeyboard()
-            }
+            // Save button using CustomButton
+            CustomButton(
+                title: "Save",
+                action: {
+                    savedUsername = username
+                    savedPassword = password
+                    showSavedInfo = true
+                    hideKeyboard()
+                },
+                backgroundColor: UIColor.systemBlue
+            )
             .frame(width: 200, height: 50)
-            .background(Color.blue)
-            .foregroundColor(.white)
-            .cornerRadius(8)
             .padding(.top, 20)
             
-            // Clear button
-            Button("Clear") {
-                savedUsername = ""
-                savedPassword = ""
-                username = ""
-                password = ""
-                showSavedInfo = false
-                hideKeyboard()
-            }
+            // Clear button using CustomButton with red background
+            CustomButton(
+                title: "Clear",
+                action: {
+                    // Clear all fields and hide saved info
+                    username = ""
+                    password = ""
+                    savedUsername = ""
+                    savedPassword = ""
+                    showSavedInfo = false
+                    hideKeyboard()
+                },
+                backgroundColor: UIColor.systemRed
+            )
             .frame(width: 200, height: 50)
-            .background(Color.red)
-            .foregroundColor(.white)
-            .cornerRadius(8)
             .padding(.top, 10)
             
             // Display saved information

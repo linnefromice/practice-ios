@@ -23,6 +23,10 @@ struct CustomTextField: UIViewRepresentable {
         textField.borderStyle = .roundedRect
         textField.font = UIFont.systemFont(ofSize: 16)
 
+        // Add visual feedback when editing
+        textField.backgroundColor = UIColor.white
+        textField.tintColor = UIColor.systemBlue  // Cursor color
+
         // Add a toolbar with a "Done" button
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
@@ -56,6 +60,16 @@ struct CustomTextField: UIViewRepresentable {
 
         func textFieldDidChangeSelection(_ textField: UITextField) {
             text = textField.text ?? ""
+        }
+
+        func textFieldDidBeginEditing(_ textField: UITextField) {
+            // Add visual feedback when editing begins
+            textField.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
+        }
+
+        func textFieldDidEndEditing(_ textField: UITextField) {
+            // Reset background when editing ends
+            textField.backgroundColor = UIColor.white
         }
 
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {
