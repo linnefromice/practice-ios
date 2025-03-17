@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  PracticeWrapUIKit
-//
-//  Created by arata.haruyama on 2025/03/17.
-//
-
 import SwiftUI
 
 struct ContentView: View {
@@ -14,6 +7,12 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Hello, world!")
+
+            Button(title: "Tap me", action: {
+                print("Button tapped")
+            })
+            .frame(width: 200, height: 50)
+            .fixedSize()
         }
         .padding()
     }
