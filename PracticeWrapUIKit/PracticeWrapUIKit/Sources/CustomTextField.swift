@@ -23,9 +23,17 @@ struct CustomTextField: UIViewRepresentable {
         textField.borderStyle = .roundedRect
         textField.font = UIFont.systemFont(ofSize: 16)
 
+        // Improve text visibility with darker text color
+        textField.textColor = UIColor.darkText
+
         // Add visual feedback when editing
-        textField.backgroundColor = UIColor.white
+        textField.backgroundColor = UIColor(white: 0.97, alpha: 1.0)
         textField.tintColor = UIColor.systemBlue  // Cursor color
+
+        // Add border
+        textField.layer.borderWidth = 1.0
+        textField.layer.borderColor = UIColor.lightGray.cgColor
+        textField.layer.cornerRadius = 5.0
 
         // Add a toolbar with a "Done" button
         let toolbar = UIToolbar()
@@ -65,11 +73,29 @@ struct CustomTextField: UIViewRepresentable {
         func textFieldDidBeginEditing(_ textField: UITextField) {
             // Add visual feedback when editing begins
             textField.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
+
+            // Change border color when focused
+            textField.layer.borderColor = UIColor.systemBlue.cgColor
+            textField.layer.borderWidth = 2.0
+
+            // Add subtle animation for focus
+            UIView.animate(withDuration: 0.2) {
+                textField.transform = CGAffineTransform(scaleX: 1.02, y: 1.02)
+            }
         }
 
         func textFieldDidEndEditing(_ textField: UITextField) {
             // Reset background when editing ends
-            textField.backgroundColor = UIColor.white
+            textField.backgroundColor = UIColor(white: 0.97, alpha: 1.0)
+
+            // Reset border when not focused
+            textField.layer.borderColor = UIColor.lightGray.cgColor
+            textField.layer.borderWidth = 1.0
+
+            // Reset transform
+            UIView.animate(withDuration: 0.2) {
+                textField.transform = CGAffineTransform.identity
+            }
         }
 
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {

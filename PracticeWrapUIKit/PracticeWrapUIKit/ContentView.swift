@@ -16,9 +16,10 @@ struct ContentView: View {
                 .padding(.bottom, 20)
             
             // Username field using CustomTextField
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 8) {
                 Text("Username")
                     .font(.headline)
+                    .foregroundColor(.primary)
                 CustomTextField(
                     text: $username,
                     placeholder: "Enter your username",
@@ -28,14 +29,15 @@ struct ContentView: View {
                         print("Username entered: \(username)")
                     }
                 )
-                .frame(height: 40)
+                .frame(height: 50)
             }
             .padding(.horizontal)
             
             // Password field using CustomTextField
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 8) {
                 Text("Password")
                     .font(.headline)
+                    .foregroundColor(.primary)
                 CustomTextField(
                     text: $password,
                     placeholder: "Enter your password",
@@ -45,7 +47,7 @@ struct ContentView: View {
                         print("Password entered")
                     }
                 )
-                .frame(height: 40)
+                .frame(height: 50)
             }
             .padding(.horizontal)
             
@@ -85,13 +87,20 @@ struct ContentView: View {
                 VStack(alignment: .leading, spacing: 10) {
                     Text("Saved Information:")
                         .font(.headline)
+                        .foregroundColor(.primary)
                     Text("Username: \(savedUsername)")
+                        .foregroundColor(.primary)
                     Text("Password: \(savedPassword.map { _ in "•" }.joined())")
+                        .foregroundColor(.primary)
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
                 .background(Color.gray.opacity(0.1))
                 .cornerRadius(8)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                )
                 .padding(.horizontal)
                 .padding(.top, 20)
             }
@@ -99,6 +108,7 @@ struct ContentView: View {
             Spacer()
         }
         .padding()
+        .background(Color(UIColor.systemBackground))
         .onTapGesture {
             hideKeyboard()
         }
