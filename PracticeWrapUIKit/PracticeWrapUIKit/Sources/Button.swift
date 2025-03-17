@@ -12,10 +12,14 @@ struct Button: UIViewRepresentable {
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 8
         button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
-        button.addTarget(context.coordinator, action: #selector(Coordinator.buttonTapped), for: .touchUpInside)
+        button.addTarget(
+            context.coordinator,
+            action: #selector(Coordinator.buttonTapped),
+            for: .touchUpInside
+        )
         return button
     }
-    
+
     func updateUIView(_ uiView: UIButton, context: Context) {
         uiView.setTitle(title, for: .normal)
     }
