@@ -4,6 +4,7 @@ import UIKit
 struct ContentView: View {
     @State private var username = ""
     @State private var password = ""
+    @State private var otp = ""
     @State private var savedUsername = ""
     @State private var savedPassword = ""
     @State private var showSavedInfo = false
@@ -49,6 +50,16 @@ struct ContentView: View {
                 )
                 .frame(height: 50)
             }
+            .padding(.horizontal)
+
+            OneTimeCodeContainer(
+                code: $otp,
+                codeLength: 6,
+                codeExpirySeconds: 60,
+                error: "",
+                isInitialFocus: false,
+                onResendCode: { _ in }
+            )
             .padding(.horizontal)
             
             // Save button using CustomButton
