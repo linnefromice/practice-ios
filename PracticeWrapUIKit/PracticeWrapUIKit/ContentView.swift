@@ -5,8 +5,9 @@ struct ContentView: View {
     @State private var username = ""
     @State private var password = ""
     @State private var textfieldValue = ""
+    @State private var pin = ""
     @State private var otp = ""
-    @State private var otp2 = ""
+    @State private var error = ""
     @State private var savedUsername = ""
     @State private var savedPassword = ""
     @State private var showSavedInfo = false
@@ -58,15 +59,50 @@ struct ContentView: View {
                 code: $otp,
                 codeLength: 6,
                 codeExpirySeconds: 60,
-                error: "",
+                error: error,
                 isInitialFocus: false,
                 onResendCode: { _ in }
             )
             .padding(.horizontal)
-
-            EnhancedTextField(placeholder: "Input text", text: $otp2) { onEmpty in
-                print("Backspace pressed, onEmpty? \(onEmpty) at \(Date().ISO8601Format())")
+            Text("OTP: \(otp)")
+            Button(action: {
+                if error.isEmpty {
+                    error = "Something went wrong"
+                } else {
+                    error = ""
+                }
+            }) {
+                Text("Toggle error")
             }
+
+            OneTimeCodeAtom(
+                pin: $textfieldValue,
+                isFocused: true,
+                isError: false,
+                onBackspace: { _ in
+                    print("Backspace detected")
+                }
+            )
+            .onChange(of: textfieldValue) { _, _ in
+                print("textfieldValue changed: \(textfieldValue)")
+            }
+            // BackspaceDetectionTextField(
+            //     text: $textfieldValue,
+            //     onBackspace: { _ in
+            //         print("Backspace detected")
+            //     }
+            // )
+            // .onChange(of: textfieldValue) { _, _ in
+            //     print("textfieldValue changed: \(textfieldValue)")
+            // }
+            // .border(Color.gray, width: 1)
+            // BackspaceDetectionTextField(
+            //     text: $textfieldValue,
+            //     onBackspace: { _ in
+            //         print("Backspace detected (no onChange)")
+            //     }
+            // )
+            // .border(Color.gray, width: 1)
             
             // Save button using CustomButton
             CustomButton(

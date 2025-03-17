@@ -63,20 +63,25 @@ public struct OneTimeCodeAtom: View {
     let size: (font: Int, x: Int, y: Int) = (14, 40, 48)
     let isFocused: Bool
     let isError: Bool
+    let onBackspace: (Bool) -> Void
 
     public init(
         pin: Binding<String>,
         isFocused: Bool = false,
-        isError: Bool = false
+        isError: Bool = false,
+        onBackspace: @escaping (Bool) -> Void
     ) {
         self._pin = pin
         self.isFocused = isFocused
         self.isError = isError
+        self.onBackspace = onBackspace
     }
 
     public var body: some View {
-        TextField("", text: $pin)
-            .keyboardType(.numberPad)
+        BackspaceDetectionTextField(
+            text: $pin,
+            onBackspace: onBackspace
+        )
             .modifier(OneTimeCodeModifier(pin: $pin))
             .oneTimeCodeStyle(size: size)
             .inputFieldOverlayStyle(
@@ -121,9 +126,16 @@ public struct OneTimeCode: View {
                 OneTimeCodeAtom(
                     pin: $pins[idx],
                     isFocused: pinFocusState == FocusPin.pin(idx),
-                    isError: isError
+                    isError: isError,
+                    onBackspace: { _ in 
+                        pins[idx] = ""
+                        if idx > 0 {
+                            pinFocusState = FocusPin.pin(idx - 1)
+                        }
+                    }
                 )
                 .onChange(of: pins[idx]) { _, _ in
+                    print("onChange of \(idx) \(pins[idx])")
                     updateFocusStateAfterPinChange(idx)
                     updateCodeAfterPinChange()
                 }
@@ -140,8 +152,8 @@ public struct OneTimeCode: View {
     private func updateFocusStateAfterPinChange(_ idx: Int) {
         let isBack = pins[idx].isEmpty
         if isBack && idx > 0 {
-            pinFocusState = FocusPin.pin(idx - 1)
-        } else if !isBack && idx < codeLength - 1 {
+            return
+        } else if idx < codeLength - 1 {
             pinFocusState = FocusPin.pin(idx + 1)
         } else {
             pinFocusState = nil
