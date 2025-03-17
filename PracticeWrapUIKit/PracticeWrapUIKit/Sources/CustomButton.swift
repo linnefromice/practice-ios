@@ -1,7 +1,7 @@
 import SwiftUI
 import UIKit
 
-struct Button: UIViewRepresentable {
+struct CustomButton: UIViewRepresentable {
     let title: String
     let action: () -> Void
 
