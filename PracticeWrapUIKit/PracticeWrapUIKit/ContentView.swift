@@ -4,7 +4,9 @@ import UIKit
 struct ContentView: View {
     @State private var username = ""
     @State private var password = ""
+    @State private var textfieldValue = ""
     @State private var otp = ""
+    @State private var otp2 = ""
     @State private var savedUsername = ""
     @State private var savedPassword = ""
     @State private var showSavedInfo = false
@@ -61,6 +63,10 @@ struct ContentView: View {
                 onResendCode: { _ in }
             )
             .padding(.horizontal)
+
+            EnhancedTextField(placeholder: "Input text", text: $otp2) { onEmpty in
+                print("Backspace pressed, onEmpty? \(onEmpty) at \(Date().ISO8601Format())")
+            }
             
             // Save button using CustomButton
             CustomButton(

@@ -1,0 +1,143 @@
+import SwiftUI
+#if canImport(UIKit)
+import UIKit
+#else
+import AppKit
+#endif
+
+// カスタムのUITextFieldサブクラスとデリゲートプロトコル
+#if canImport(UIKit)
+protocol CustomTextFieldDelegate: AnyObject {
+    func didDeleteBackward(_ textField: CustomTextField)
+}
+
+class CustomTextField: UITextField {
+    weak var deletionDelegate: CustomTextFieldDelegate?
+    
+    override func deleteBackward() {
+        super.deleteBackward()
+        deletionDelegate?.didDeleteBackward(self)
+    }
+}
+#endif
+
+struct BackspaceTextField: UIViewRepresentable {
+    @Binding var text: String
+    var onBackspace: () -> Void
+    
+    func makeUIView(context: Context) -> UITextField {
+        let textField = UITextField()
+        textField.delegate = context.coordinator
+        textField.keyboardType = .numberPad
+        textField.textAlignment = .center
+        textField.autocorrectionType = .no
+        
+        // カーソルを非表示にする
+        textField.tintColor = .clear
+        
+        // 入力中のテキスト変更を監視
+        NotificationCenter.default.addObserver(
+            context.coordinator,
+            selector: #selector(Coordinator.textDidChange),
+            name: UITextField.textDidChangeNotification,
+            object: textField
+        )
+        
+        return textField
+    }
+    
+    func updateUIView(_ uiView: UITextField, context: Context) {
+        uiView.text = text
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    
+    class Coordinator: NSObject, UITextFieldDelegate {
+        var parent: BackspaceTextField
+        private var lastText: String = ""
+        
+        init(_ parent: BackspaceTextField) {
+            self.parent = parent
+            self.lastText = parent.text
+        }
+        
+        // テキスト変更通知を処理
+        @objc func textDidChange(notification: Notification) {
+            guard let textField = notification.object as? UITextField else { return }
+            
+            // 現在のテキストを取得
+            let currentText = textField.text ?? ""
+            
+            // テキストが短くなった場合（バックスペースが押された可能性がある）
+            if currentText.count < lastText.count {
+                // テキストが空になった場合
+                if currentText.isEmpty {
+                    parent.onBackspace()
+                }
+            }
+            
+            // 最後のテキストを更新
+            lastText = currentText
+            
+            // Binding を更新
+            parent.text = currentText
+        }
+        
+        // UITextFieldDelegateのメソッド
+        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            // Backspaceが押された場合
+            if string.isEmpty && range.length > 0 {
+                // 現在のテキストをクリアして、onBackspaceコールバックを呼び出す
+                parent.text = ""
+                parent.onBackspace()
+                return false
+            }
+            
+            // 数字入力の場合
+            if !string.isEmpty {
+                // 数字のみを許可
+                if CharacterSet(charactersIn: "0123456789").isSuperset(of: CharacterSet(charactersIn: string)) {
+                    // 既存のテキストを置き換える（1文字制限）
+                    parent.text = string
+                }
+                return false
+            }
+            
+            return true
+        }
+        
+        // フォーカスを受け取った時の処理
+        func textFieldDidBeginEditing(_ textField: UITextField) {
+            // カーソルを非表示にする
+            textField.tintColor = .clear
+            
+            // 現在のテキストを記録
+            lastText = textField.text ?? ""
+            
+            // カーソルを文字の最後に配置する（削除しやすくするため）
+            if let text = textField.text, !text.isEmpty {
+                let position = textField.position(from: textField.beginningOfDocument, offset: text.count)
+                if let position = position {
+                    textField.selectedTextRange = textField.textRange(from: position, to: position)
+                }
+            }
+        }
+    }
+}
+
+#if os(macOS)
+extension BackspaceTextField {
+    func makeNSView(context: Context) -> NSTextField {
+        let textField = NSTextField()
+        textField.delegate = context.coordinator
+        textField.alignment = .center
+        return textField
+    }
+    
+    func updateNSView(_ nsView: NSTextField, context: Context) {
+        nsView.stringValue = text
+    }
+}
+#endif 
