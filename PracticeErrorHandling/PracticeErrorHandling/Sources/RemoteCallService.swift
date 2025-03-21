@@ -1,4 +1,6 @@
 // Mockup for handling verification by ExecutionStatus
+import Foundation
+
 class RemoteCallService {
     func call(isSuccess: Bool, errorMessage: String) async -> ExecutionStatus<VoidSuccess> {
         if isSuccess {
