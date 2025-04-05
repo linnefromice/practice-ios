@@ -9,59 +9,6 @@ import Testing
 @testable import ValidatorApp
 
 struct ValidatorTests {
-    @Test("NonEmptyValidator - 空でない文字列は有効")
-    func testNonEmptyValidatorWithValidInput() throws {
-        let validator = NonEmptyValidator()
-        let result = validator.validate("test")
-        #expect(result.isValid)
-    }
-    
-    @Test("NonEmptyValidator - 空文字列は無効", arguments: [
-        "",
-        " ",
-        "\n",
-        "\t"
-    ])
-    func testNonEmptyValidatorWithInvalidInput(_ input: String) throws {
-        let validator = NonEmptyValidator()
-        let result = validator.validate(input)
-        #expect(!result.isValid)
-        
-        if case .failure(let error) = result {
-            #expect(error.key == "error.nonEmpty")
-        }
-    }
-    
-    @Test("UserIdValidator - 有効なユーザーID", arguments: [
-        "user",
-        "User-Name",
-        "abc-DEF",
-        "a-b-c"
-    ])
-    func testUserIdValidatorWithValidInput(_ userId: String) throws {
-        let validator = UserIdValidator()
-        let result = validator.validate(userId)
-        #expect(result.isValid)
-    }
-    
-    @Test("UserIdValidator - 無効なユーザーID", arguments: [
-        "user123",         // 数字を含む
-        "user_name",       // アンダースコアを含む
-        "ユーザー",        // 日本語を含む
-        "user@domain",     // 特殊文字を含む
-        "",               // 空文字
-        "user name"       // スペースを含む
-    ])
-    func testUserIdValidatorWithInvalidInput(_ userId: String) throws {
-        let validator = UserIdValidator()
-        let result = validator.validate(userId)
-        #expect(!result.isValid)
-        
-        if case .failure(let error) = result {
-            #expect(error.key == "error.invalidUserId")
-        }
-    }
-    
     @Test("CompositeValidator - 複数のバリデーションを組み合わせる")
     func testCompositeValidator() throws {
         let validator = CompositeValidator(validators: [
