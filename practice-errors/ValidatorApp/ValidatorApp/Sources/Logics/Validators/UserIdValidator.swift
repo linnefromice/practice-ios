@@ -12,8 +12,7 @@ public struct UserIdValidator: Validator {
             return .success
         } else {
             return .failure(ValidationError(
-                key: "error.invalidUserId",
-                arguments: []
+                key: ValidationErrorKey.invalidUserId.rawValue
             ))
         }
     }
