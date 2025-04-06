@@ -1,43 +1,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State private var userId: String = ""
-    @State private var password: String = ""
-    @State private var isLoggedIn: Bool = false
-    @State private var userIdError: String? = nil
-    @State private var passwordError: String? = nil
-    
-    private let userIdValidator = CompositeValidator(validators: [
-        AnyValidator(NonEmptyValidator()),
-        AnyValidator(UserIdValidator())
-    ])
-    
-    private let passwordValidator = CompositeValidator(validators: [
-        AnyValidator(NonEmptyValidator())
-    ])
-    
-    private func validateForm() -> Bool {
-        var hasError = false
-        // ユーザーIDのバリデーション
-        let userIdResult = userIdValidator.validate(userId)
-        if case .failure(let error) = userIdResult {
-            userIdError = error.errorDescription
-            hasError = true
-        } else {
-            userIdError = nil
-        }
-        
-        // パスワードのバリデーション
-        let passwordResult = passwordValidator.validate(password)
-        if case .failure(let error) = passwordResult {
-            passwordError = error.errorDescription
-            hasError = true
-        } else {
-            passwordError = nil
-        }
-        
-        return !hasError
-    }
+    @StateObject private var viewModel = LoginViewModel()
     
     var body: some View {
         VStack(spacing: 20) {
@@ -49,9 +13,9 @@ struct LoginView: View {
             VStack(alignment: .leading, spacing: 15) {
                 Text("ユーザーID")
                     .font(.headline)
-                TextField("ユーザーIDを入力", text: $userId)
+                TextField("ユーザーIDを入力", text: $viewModel.userId)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                if let error = userIdError {
+                if let error = viewModel.errorMessages.userId {
                     Text(error)
                         .foregroundColor(.red)
                         .font(.caption)
@@ -59,9 +23,9 @@ struct LoginView: View {
                 
                 Text("パスワード")
                     .font(.headline)
-                SecureField("パスワードを入力", text: $password)
+                SecureField("パスワードを入力", text: $viewModel.password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                if let error = passwordError {
+                if let error = viewModel.errorMessages.password {
                     Text(error)
                         .foregroundColor(.red)
                         .font(.caption)
@@ -70,9 +34,7 @@ struct LoginView: View {
             .padding(.horizontal)
             
             Button(action: {
-                if validateForm() {
-                    isLoggedIn = true
-                }
+                viewModel.login()
             }) {
                 Text("ログイン")
                     .font(.headline)
@@ -82,7 +44,7 @@ struct LoginView: View {
                     .background(Color.blue)
                     .cornerRadius(10)
             }
-            .navigationDestination(isPresented: $isLoggedIn) {
+            .navigationDestination(isPresented: $viewModel.isLoggedIn) {
                 DashboardView()
             }
             .padding(.horizontal)
