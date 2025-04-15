@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C10CC2D32D4CC1B700CF23D3 /* CoreComponents in Frameworks */ = {isa = PBXBuildFile; productRef = C10CC2D22D4CC1B700CF23D3 /* CoreComponents */; };
+		C1F098042DAE561D003684E0 /* CoreDesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = C1F098032DAE561D003684E0 /* CoreDesignSystem */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1F098042DAE561D003684E0 /* CoreDesignSystem in Frameworks */,
 				C10CC2D32D4CC1B700CF23D3 /* CoreComponents in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,6 +40,7 @@
 			isa = PBXGroup;
 			children = (
 				C1DFF0BC2D4CBD6A00A7B616 /* MainApp */,
+				C1F098022DAE561D003684E0 /* Frameworks */,
 				C1DFF0BB2D4CBD6A00A7B616 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -48,6 +51,13 @@
 				C1DFF0BA2D4CBD6A00A7B616 /* MainApp.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C1F098022DAE561D003684E0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,6 +81,7 @@
 			name = MainApp;
 			packageProductDependencies = (
 				C10CC2D22D4CC1B700CF23D3 /* CoreComponents */,
+				C1F098032DAE561D003684E0 /* CoreDesignSystem */,
 			);
 			productName = MainApp;
 			productReference = C1DFF0BA2D4CBD6A00A7B616 /* MainApp.app */;
@@ -261,6 +272,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MainApp/Preview Content\"";
+				DEVELOPMENT_TEAM = Z7X35G5FW9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -289,6 +301,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MainApp/Preview Content\"";
+				DEVELOPMENT_TEAM = Z7X35G5FW9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -343,6 +356,11 @@
 		C10CC2D22D4CC1B700CF23D3 /* CoreComponents */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CoreComponents;
+		};
+		C1F098032DAE561D003684E0 /* CoreDesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C10CC2D12D4CC1B700CF23D3 /* XCLocalSwiftPackageReference "../../../TemplateSPM" */;
+			productName = CoreDesignSystem;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

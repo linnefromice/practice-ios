@@ -1,5 +1,6 @@
 import SwiftUI
 import CoreComponents
+import CoreDesignSystem
 
 struct ContentView: View {
     var body: some View {
@@ -14,6 +15,16 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Hello, world!")
+            VStack {
+                Text("Primary")
+                    .foregroundStyle(Color._primary)
+                Text("On Primary")
+                    .foregroundStyle(Color._onPrimary)
+                Text("Info")
+                    .foregroundStyle(Color._info)
+            }
+            .background(.gray)
+            .padding()
             Spacer()
         }
         .padding()
