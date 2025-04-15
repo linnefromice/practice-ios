@@ -26,7 +26,15 @@ extension Color {
         })
     }
 
-    public static let _primary = dynamicColor(light: .white1000, dark: .black1000)
-    public static let _onPrimary = dynamicColor(light: .black1000, dark: .white1000)
-    public static let _info = dynamicColor(light: .systemDarkBlue, dark: .systemRed)
+    public static let appPrimary = dynamicColor(light: .white1000, dark: .black1000)
+    public static let appOnPrimary = dynamicColor(light: .black1000, dark: .white1000)
+    public static let appInfo = dynamicColor(light: .systemDarkBlue, dark: .systemRed)
+
+    public struct Theme {
+        public static let primary = dynamicColor(light: .white1000, dark: .black1000)
+        public static let onPrimary = dynamicColor(light: .black1000, dark: .white1000)
+        public static let info = dynamicColor(light: .systemDarkBlue, dark: .systemRed)
+    }
 }
+
+public typealias AppTheme = Color.Theme

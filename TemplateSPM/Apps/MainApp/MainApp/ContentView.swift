@@ -17,11 +17,11 @@ struct ContentView: View {
             Text("Hello, world!")
             VStack {
                 Text("Primary")
-                    .foregroundStyle(Color._primary)
+                    .foregroundStyle(AppTheme.primary)
                 Text("On Primary")
-                    .foregroundStyle(Color._onPrimary)
+                    .foregroundStyle(AppTheme.onPrimary)
                 Text("Info")
-                    .foregroundStyle(Color._info)
+                    .foregroundStyle(AppTheme.info)
             }
             .background(.gray)
             .padding()
