@@ -3,6 +3,7 @@ import CoreComponents
 import CoreDesignSystem
 
 struct ContentView: View {
+
     var body: some View {
         VStack {
             ThreeSectionBar(
@@ -25,10 +26,29 @@ struct ContentView: View {
             }
             .background(.gray)
             .padding()
+            HStack {
+                Button("Dark") {
+                    changeTheme(to: .dark)
+                }
+                Button("Light") {
+                    changeTheme(to: .light)
+                }
+                Button("System") {
+                    changeTheme(to: .unspecified)
+                }
+            }
             Spacer()
         }
         .padding()
     }
+
+    private func changeTheme(to: UIUserInterfaceStyle) {
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScenes = scenes.first as? UIWindowScene
+        let window = windowScenes?.windows.first
+        window?.overrideUserInterfaceStyle = to
+    }
+    
 }
 
 #Preview {
