@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftData
 import CoreComponents
+import FeatureChat
 
 public struct FeatureChatRoomView: View {
     @Environment(\.modelContext) private var context

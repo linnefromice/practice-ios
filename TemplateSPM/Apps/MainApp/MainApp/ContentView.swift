@@ -32,6 +32,7 @@ struct ContentView: View {
                 }
             )
 
+            Spacer()
             switch state {
             case .root:
                 ContentRootView()
@@ -40,6 +41,7 @@ struct ContentView: View {
             case .camera:
                 CameraView()
             }
+            Spacer()
         }
         .padding()
     }
@@ -115,17 +117,23 @@ struct GalleryView: View {
                     .padding()
                 }
             }
-            
+
+            Spacer().frame(height: 16)
             PhotosPicker(
                 selection: $selectedItems,
-                maxSelectionCount: 10,
+//                maxSelectionCount: 10,
                 matching: .images
             ) {
                 Label("Select Photos", systemImage: "photo.stack")
                     .foregroundStyle(AppTheme.primary)
             }
+            Spacer().frame(height: 16)
+            Button("Reset") {
+                selectedItems = []
+                selectedImages = []
+            }
         }
-        .onChange(of: selectedItems) { _ in
+        .onChange(of: selectedItems) { _, _ in
             Task {
                 selectedImages = []
                 for item in selectedItems {

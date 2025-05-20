@@ -20,6 +20,9 @@ let package = Package(
         .library(
             name: "FeatureChat",
             targets: ["FeatureChat"]),
+        .library(
+            name: "FeatureChatViewer",
+            targets: ["FeatureChatViewer"]),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -36,7 +39,12 @@ let package = Package(
         //     name: "CoreCamera"),
         .target(
             name: "FeatureChat",
-            dependencies: ["CoreComponents"]),
-            
+            dependencies: []),
+        .target(
+            name: "FeatureChatViewer",
+            dependencies: [
+                "CoreComponents",
+                "FeatureChat"
+            ]),
     ]
 )

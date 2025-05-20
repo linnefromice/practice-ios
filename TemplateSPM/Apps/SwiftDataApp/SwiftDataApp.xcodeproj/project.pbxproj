@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C15A791C2D54C52800E06C74 /* CoreComponents in Frameworks */ = {isa = PBXBuildFile; productRef = C15A791B2D54C52800E06C74 /* CoreComponents */; };
 		C15A791E2D54C52800E06C74 /* FeatureChat in Frameworks */ = {isa = PBXBuildFile; productRef = C15A791D2D54C52800E06C74 /* FeatureChat */; };
+		C1617C8C2DD763BA002ED9A9 /* FeatureChatViewer in Frameworks */ = {isa = PBXBuildFile; productRef = C1617C8B2DD763BA002ED9A9 /* FeatureChatViewer */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1617C8C2DD763BA002ED9A9 /* FeatureChatViewer in Frameworks */,
 				C15A791E2D54C52800E06C74 /* FeatureChat in Frameworks */,
 				C15A791C2D54C52800E06C74 /* CoreComponents in Frameworks */,
 			);
@@ -40,6 +42,7 @@
 			isa = PBXGroup;
 			children = (
 				C15A79092D54C36F00E06C74 /* SwiftDataApp */,
+				C1617C8A2DD763BA002ED9A9 /* Frameworks */,
 				C15A79082D54C36F00E06C74 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,6 +53,13 @@
 				C15A79072D54C36F00E06C74 /* SwiftDataApp.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C1617C8A2DD763BA002ED9A9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,6 +84,7 @@
 			packageProductDependencies = (
 				C15A791B2D54C52800E06C74 /* CoreComponents */,
 				C15A791D2D54C52800E06C74 /* FeatureChat */,
+				C1617C8B2DD763BA002ED9A9 /* FeatureChatViewer */,
 			);
 			productName = SwiftDataApp;
 			productReference = C15A79072D54C36F00E06C74 /* SwiftDataApp.app */;
@@ -352,6 +363,11 @@
 		C15A791D2D54C52800E06C74 /* FeatureChat */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FeatureChat;
+		};
+		C1617C8B2DD763BA002ED9A9 /* FeatureChatViewer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C15A79182D54C52800E06C74 /* XCLocalSwiftPackageReference "../../../TemplateSPM" */;
+			productName = FeatureChatViewer;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -1,14 +1,12 @@
 import SwiftUI
 import SwiftData
+import FeatureChat
 
 public struct FeatureChatEntryView: View {
     public init() {}
     
     public var body: some View {
         FeatureChatEntryContentsView()
-            .modelContainer(for: [
-                ChatRoom.self
-            ])
     }
 }
 

@@ -3,11 +3,11 @@ import SwiftData
 
 @Model
 public final class ChatRoom {
-    @Attribute(.unique) var roomId: Int
-    var name: String
-    var latestMessage: String?
-    var isNotificationoOff: Bool
-    var hiddenDate: Date?
+    @Attribute(.unique) public var roomId: Int
+    public var name: String
+    public var latestMessage: String?
+    public var isNotificationoOff: Bool
+    public var hiddenDate: Date?
 
     public init(
         roomId: Int,
